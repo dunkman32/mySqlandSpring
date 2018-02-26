@@ -20,36 +20,14 @@ public class UsersResource {
         return usersRepository.findAll();
     }
 
-//    @PostMapping(value = "/find/{name}/{password}")
-//    public ResponseEntity<Users> login(
-//            @PathVariable(value = "name") String name,
-//            @PathVariable(value = "password") String password) {
-//        Users user = usersRepository.findByName(name);
-//        if(Objects.nonNull(user)){
-//            if(user.getPassword().equals(password))
-//                return new ResponseEntity<>(user,HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//
-//    }
-
-//    @RequestMapping(method = RequestMethod.POST, value = "/auth")
-//    public ResponseEntity<Users> login(
-//            @RequestBody Users user){
-//        if(Objects.nonNull(usersRepository.findByName(user).equals(user))){
-//                return new ResponseEntity<>(user, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//
-//    }
     @RequestMapping(method = RequestMethod.POST, value = "/auth")
     public ResponseEntity<Users> login(
             @RequestBody MyData user){
-            Users tmp = usersRepository.findByName(user.getName());
-       // if(Objects.nonNull(usersRepository.findByName(user).equals(user))){
+        Users tmp = usersRepository.findByName(user.getName());
+        if(Objects.nonNull(tmp)){
         if(tmp.getName().equals(user.getName()) && tmp.getPassword().equals(user.getPassword())){
             return new ResponseEntity<>(tmp, HttpStatus.OK);
-        }
+        }}
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
     @PostMapping(value = "/load")
